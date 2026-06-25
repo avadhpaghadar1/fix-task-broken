@@ -1,10 +1,6 @@
 #!/bin/bash
+set -e
 
-# pytest is baked into the environment image (environment/Dockerfile).
-pytest /tests/test_outputs.py -rA
-
-if [ $? -eq 0 ]; then
-  echo 1 > /app/reward.txt
-else
-  echo 0 > /app/reward.txt
-fi
+pytest /tests/test_outputs.py \
+    --json-ctrf /tests/ctrf.json \
+    -rA
